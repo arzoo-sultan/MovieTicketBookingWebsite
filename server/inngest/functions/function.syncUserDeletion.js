@@ -1,15 +1,15 @@
-import { inngest } from "../index.js"; 
+import { inngest } from "../client.js"; 
 import User from "../../models/model/user.model.js";
 
-// Create the function and assign it to a variable first
 const syncUserDeletion = inngest.createFunction(
-    { id: 'delete-user-with-clerk' }, 
-    { event: 'clerk/user.deleted' },
+    { 
+        id: 'delete-user-with-clerk',
+        triggers: { event: 'clerk/user.deleted' } // Combined into the first object
+    }, 
     async ({ event }) => {
-        const { id} = event.data;
+        const { id } = event.data;
         await User.findByIdAndDelete(id);
     }
 );
 
-// Export it as the default export
 export default syncUserDeletion;
