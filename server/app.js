@@ -4,6 +4,7 @@ import cors from "cors";
 import { clerkMiddleware } from '@clerk/express'
 import { inngest,functions } from "./inngest/index.js";
 import {serve} from 'inngest/express'
+import showRouter from "./routes/show.routes.js";
 const app= express();
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
@@ -20,6 +21,7 @@ app.use('/api/inngest',serve({
     client:inngest,
     functions
 }))
+app.use('/api/show',showRouter)
 // import userRouter from './routes/user.routes.js';//userRouter is a  name used for router coz in ES6 we can import (router) under a different name
 // // routes declaration
 // app.use("/api/v1/users",userRouter)//users is a prefix for requests that are coming to userRouter
